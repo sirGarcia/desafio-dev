@@ -14,7 +14,7 @@ public class ContaLoja {
     private Integer ContaLojaId;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "lojaPrarConta", referencedColumnName = "lojaId")
+    @JoinColumn(name = "loja_id")
     private Loja loja;
 
     private BigDecimal saldo;

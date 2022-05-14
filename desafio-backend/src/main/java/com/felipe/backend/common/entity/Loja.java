@@ -16,4 +16,8 @@ public class Loja {
     @OneToMany(mappedBy="loja")
     private Set<Transacoes> transacoes;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private ContaLoja contaLoja;
+
 }
