@@ -1,5 +1,6 @@
 package com.felipe.backend.common.entity;
 
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
@@ -7,6 +8,7 @@ import java.math.BigDecimal;
 
 @Entity // This tells Hibernate to make a table out of this class
 @Table(name = "TB_TRANSACOES")
+@Data
 @Slf4j
 public class Transacoes {
     @Id
