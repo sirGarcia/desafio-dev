@@ -1,7 +1,9 @@
 package com.felipe.backend.service.arquivo;
 
 import com.felipe.backend.common.entity.ArquivoCNAB;
+import com.felipe.backend.common.entity.ConteudoArquivoCNAB;
 import com.felipe.backend.common.entity.Transacoes;
+import com.felipe.backend.common.helper.PersistConteudoDTO;
 import com.felipe.backend.common.repositories.ArquivoCNABRepository;
 import com.felipe.backend.fabrica.FabricaNegocio;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,12 +26,13 @@ public class ArquivoCNABService implements IArquivoCNABService {
 
     public Iterable<ArquivoCNAB> getArquivoByNome(String nome){return arquivoRepo.findByNome(nome);}
 
-    public ArquivoCNAB insertArquivo(MultipartFile file) throws Exception{
-        return fabricaNegocio.getPersistArquivo().exec(file);
-    }
 
     public List<Transacoes> parseFile(MultipartFile file) throws Exception{
-        List<Transacoes> transacoes = fabricaNegocio.getParseCNABFile().exec(file);
+        ArquivoCNAB arquivo = fabricaNegocio.getPersistArquivo().exec(file);
+        List<ConteudoArquivoCNAB> conteudo = fabricaNegocio.getPersistConteudoArquivo().exec(
+                new PersistConteudoDTO(file, arquivo)
+        );
+        List<Transacoes> transacoes = fabricaNegocio.getParseCNABFile().exec(conteudo);
         return fabricaNegocio.getPersistTransacoes().exec(transacoes);
     }
 }

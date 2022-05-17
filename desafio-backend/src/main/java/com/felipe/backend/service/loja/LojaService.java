@@ -21,7 +21,7 @@ public class LojaService implements ILojaService{
     }
 
     @Override
-    public Loja getLojaByNome(String nome) {
-        return lojaRepo.findByNomeLoja(nome);
+    public Loja getLojaById(String id) {
+        return lojaRepo.findById(id).get();
     }
 }

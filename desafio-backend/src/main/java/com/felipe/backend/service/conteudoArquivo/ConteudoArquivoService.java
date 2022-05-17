@@ -20,20 +20,6 @@ public class ConteudoArquivoService implements IConteudoArquivoService {
     ConteudoArquivoCNABRepository conteudoArquivoRepo;
 
     @Override
-    public List<ConteudoArquivoCNAB> insertConteudo(ArquivoCNAB arquivo, MultipartFile file) throws Exception{
-        List<ConteudoArquivoCNAB> inseridos = new ArrayList<>();
-        String content = new String(file.getBytes(), StandardCharsets.UTF_8);
-        for(String line : content.split("\\r?\\n")){
-            ConteudoArquivoCNAB conteudo = new ConteudoArquivoCNAB();
-            conteudo.setArquivoCNAB(arquivo);
-            conteudo.setConteudoLinha(line);
-            conteudoArquivoRepo.save(conteudo);
-            inseridos.add(conteudo);
-        }
-        return inseridos;
-    }
-
-    @Override
     public List<ConteudoArquivoCNAB> getConteudoByArquivo(ArquivoCNAB arquivoCNAB){
         return conteudoArquivoRepo.findByArquivoCNAB(arquivoCNAB);
     }

@@ -7,6 +7,5 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 public interface IConteudoArquivoService {
-    List<ConteudoArquivoCNAB> insertConteudo(ArquivoCNAB arquivo, MultipartFile file) throws Exception;
     List<ConteudoArquivoCNAB> getConteudoByArquivo(ArquivoCNAB arquivoCNAB);
 }

@@ -2,6 +2,7 @@ package com.felipe.backend.fabrica;
 
 import com.felipe.backend.negocio.parsearquivo.ParseCNABFile;
 import com.felipe.backend.negocio.persist.PersistArquivo;
+import com.felipe.backend.negocio.persist.PersistConteudoArquivo;
 import com.felipe.backend.negocio.persist.PersistTransacoes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -15,13 +16,20 @@ public class FabricaNegocio {
     PersistArquivo persistArquivo;
     @Autowired
     PersistTransacoes persistTransacoes;
+    @Autowired
+    PersistConteudoArquivo persistConteudoArquivo;
+
 
     public ParseCNABFile getParseCNABFile() { return parseCNABFile; }
-
     public PersistArquivo getPersistArquivo() {
         return persistArquivo;
     }
     public PersistTransacoes getPersistTransacoes() {
         return persistTransacoes;
     }
+
+    public PersistConteudoArquivo getPersistConteudoArquivo() {
+        return persistConteudoArquivo;
+    }
+
 }

@@ -3,10 +3,14 @@ package com.felipe.backend.service.transacao;
 import com.felipe.backend.common.entity.Loja;
 import com.felipe.backend.common.entity.Transacoes;
 import com.felipe.backend.common.repositories.TransacoesRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
+@Slf4j
 public class TransacaoService implements ITransacaoService{
     @Autowired
     TransacoesRepository transacoesRepo;
@@ -21,8 +25,4 @@ public class TransacaoService implements ITransacaoService{
         return transacoesRepo.findByLoja(loja);
     }
 
-    @Override
-    public List<Transacoes> insertTransacoes(List<Transacoes> transacoes) {
-        return (List<Transacoes>) transacoesRepo.saveAll(transacoes);
-    }
 }

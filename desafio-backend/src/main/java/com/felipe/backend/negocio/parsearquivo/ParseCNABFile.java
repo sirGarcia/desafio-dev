@@ -1,5 +1,6 @@
 package com.felipe.backend.negocio.parsearquivo;
 
+import com.felipe.backend.common.entity.ConteudoArquivoCNAB;
 import com.felipe.backend.common.entity.Loja;
 import com.felipe.backend.common.entity.Transacoes;
 import com.felipe.backend.common.enums.ArquivoCNABConfig;
@@ -7,34 +8,31 @@ import com.felipe.backend.common.enums.TipoTransacaoConfig;
 import com.felipe.backend.common.helper.NegocioGeral;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.math.BigDecimal;
-import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 @Slf4j
 @Component
-public class ParseCNABFile extends NegocioGeral<MultipartFile, List<Transacoes>, List<Transacoes>> {
+public class ParseCNABFile extends NegocioGeral<List<ConteudoArquivoCNAB>, List<Transacoes>, List<Transacoes>> {
     final int maxlength = Arrays.stream(ArquivoCNABConfig.values())
             .max(Comparator.comparing(ArquivoCNABConfig::getValueFim))
             .get().getValueFim();
 
     @Override
-    protected void checkInputConfig(MultipartFile input) throws Exception {
-        String content = new String(input.getBytes(), StandardCharsets.UTF_8);
-        Integer contentLength = content.replace("\n", "").length();
-        Integer lineCount = content.split("\\r?\\n").length;
-        log.info("" + (contentLength / lineCount));
-        if( contentLength / lineCount != maxlength) throw new Exception("file out of linesize");
+    protected void checkInputConfig(List<ConteudoArquivoCNAB> input) throws Exception {
+        if(input == null || input.isEmpty()) throw new Exception("Missing ConteudoArquivo Entity");
+        for(ConteudoArquivoCNAB c : input){
+            if(c.getConteudoLinha().length() != maxlength)
+                throw new Exception("Line of ConteudoArquivo Entity out of expected bounds");
+        }
     }
 
     @Override
-    protected List<Transacoes> execOperation(MultipartFile input) throws Exception {
-        String content = new String(input.getBytes(), StandardCharsets.UTF_8);
+    protected List<Transacoes> execOperation(List<ConteudoArquivoCNAB> input) throws Exception {
+
         List<Loja> listaLoja = new ArrayList<>();
         List<Transacoes> negocio = new ArrayList<>();
-        for(String line : content.split("\\n")){
+        for(ConteudoArquivoCNAB l : input){
+            String line = l.getConteudoLinha();
             Transacoes transacaoAtual = new Transacoes();
             Loja lojaAtual = new Loja();
             for (ArquivoCNABConfig config : ArquivoCNABConfig.values()) {

@@ -1,7 +1,10 @@
 package com.felipe.backend.controller;
 
+import com.felipe.backend.common.entity.ArquivoCNAB;
+import com.felipe.backend.common.entity.ConteudoArquivoCNAB;
 import com.felipe.backend.common.entity.Loja;
 import com.felipe.backend.common.entity.Transacoes;
+import com.felipe.backend.common.helper.PersistConteudoDTO;
 import com.felipe.backend.fabrica.FabricaNegocio;
 import com.felipe.backend.fabrica.FabricaServico;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,15 +20,7 @@ import java.util.List;
 @RequestMapping(path="/api/parsefile")
 public class FileController {
     @Autowired
-    FabricaNegocio fabricaNegocio;
-
-    @Autowired
     FabricaServico fabricaServico;
-
-    @RequestMapping(value = "/inserirArquivo", method = RequestMethod.POST, consumes = { "multipart/form-data" })
-    public List<Transacoes> parseFile(@RequestPart("file") MultipartFile file) throws Exception{
-        return fabricaServico.getArquivoCNABService().parseFile(file);
-    }
 
     @RequestMapping(value = "/persistFile", method = RequestMethod.POST, consumes = { "multipart/form-data" })
     public List<Transacoes> parseAndPersistFile(@RequestPart("file") MultipartFile file) throws Exception{
