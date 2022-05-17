@@ -64,13 +64,13 @@ public class ParseCNABFile extends NegocioGeral<MultipartFile, List<Transacoes>,
                     lojaAtual.setNomeLoja(currentElement.trim());
                 }
             }
-            Loja finalLojaAtual = lojaAtual;
-            if(listaLoja.stream().filter(x -> x.getNomeLoja().equals(finalLojaAtual.getNomeLoja())
-                    && x.getRepresentante().equals(finalLojaAtual.getRepresentante())).findFirst().isPresent()){
+            Loja finalLojaAtual = new Loja(lojaAtual.getNomeLoja(), lojaAtual.getRepresentante());
+            if(listaLoja.stream().anyMatch(x -> x.getNomeLoja().equals(finalLojaAtual.getNomeLoja())
+                    && x.getRepresentante().equals(finalLojaAtual.getRepresentante()))){
                 lojaAtual = listaLoja.stream().filter(x -> x.getNomeLoja().equals(finalLojaAtual.getNomeLoja())
                         && x.getRepresentante().equals(finalLojaAtual.getRepresentante())).findFirst().get();
             } else {
-                lojaAtual.setSaldo(Double.valueOf(0));
+                lojaAtual = finalLojaAtual;
                 listaLoja.add(lojaAtual);
             }
             transacaoAtual.setLoja(lojaAtual);

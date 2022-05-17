@@ -27,8 +27,8 @@ public class Transacoes {
     private String cartao;
     private Long horaOcorrencia;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "lojaParaTransacao", nullable = false)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "transacaoToLoja", nullable = false)
     private Loja loja;
 
 }

@@ -1,8 +1,12 @@
 package com.felipe.backend.common.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
-import lombok.extern.slf4j.Slf4j;
+import lombok.Getter;
+import org.apache.tomcat.util.codec.binary.Base64;
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
+import java.nio.charset.StandardCharsets;
 import java.util.Set;
 
 @Entity // This tells Hibernate to make a table out of this class
@@ -10,8 +14,7 @@ import java.util.Set;
 @Data
 public class Loja {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    private Integer lojaId;
+    private String lojaId;
     private String nomeLoja;
     private String representante;
     private Double saldo;
@@ -20,6 +23,18 @@ public class Loja {
     @JsonBackReference
     private Set<Transacoes> transacoes;
 
+    public Loja (String nomeLoja, String representante){
+        this.nomeLoja = nomeLoja;
+        this.representante = representante;
+        this.saldo = (double) 0;
+        this.lojaId = gerarId();
+    }
+    public Loja(){
 
+    }
+    private String gerarId(){
+        String base = this.nomeLoja + this.representante;
+        return new String(Base64.encodeBase64(base.getBytes(StandardCharsets.UTF_8)));
+    }
 
 }

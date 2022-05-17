@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path="/api/parsefile")
-public class ParseFileController {
+public class FileController {
     @Autowired
     FabricaNegocio fabricaNegocio;
 
@@ -24,6 +24,12 @@ public class ParseFileController {
 
     @RequestMapping(value = "/inserirArquivo", method = RequestMethod.POST, consumes = { "multipart/form-data" })
     public List<Transacoes> parseFile(@RequestPart("file") MultipartFile file) throws Exception{
-        return fabricaNegocio.getParseCNABFile().exec(file);
+        return fabricaServico.getArquivoCNABService().parseFile(file);
     }
+
+    @RequestMapping(value = "/persistFile", method = RequestMethod.POST, consumes = { "multipart/form-data" })
+    public List<Transacoes> parseAndPersistFile(@RequestPart("file") MultipartFile file) throws Exception{
+        return fabricaServico.getArquivoCNABService().parseFile(file);
+    }
+
 }
