@@ -1,5 +1,8 @@
 package com.felipe.backend.common.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.felipe.backend.common.enums.TipoTransacaoConfig;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
@@ -15,14 +18,13 @@ public class Transacoes {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Integer transacaoId;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "tipoParaTransacao", nullable = false)
-    private TipoTransacao tipoTransacao;
+    @Enumerated(EnumType.ORDINAL)
+    private TipoTransacaoConfig tipoTransacao;
 
     private Long dataOcorrencia;
-    private BigDecimal valorMovimentacao;
-    private BigDecimal cpfBeneficiario;
-    private BigDecimal cartao;
+    private Double valorMovimentacao;
+    private Long cpfBeneficiario;
+    private String cartao;
     private Long horaOcorrencia;
 
     @ManyToOne(cascade = CascadeType.ALL)

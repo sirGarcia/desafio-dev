@@ -1,8 +1,11 @@
 package com.felipe.backend.common.repositories;
 
+import com.felipe.backend.common.entity.ArquivoCNAB;
 import com.felipe.backend.common.entity.ConteudoArquivoCNAB;
 import org.springframework.data.repository.CrudRepository;
 
-public interface ConteudoArquivoCNABRepository extends CrudRepository<ConteudoArquivoCNAB, Integer> {
+import java.util.List;
 
+public interface ConteudoArquivoCNABRepository extends CrudRepository<ConteudoArquivoCNAB, Integer> {
+    List<ConteudoArquivoCNAB> findByArquivoCNAB(ArquivoCNAB arquivoCNAB);
 }

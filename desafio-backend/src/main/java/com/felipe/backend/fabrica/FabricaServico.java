@@ -1,7 +1,7 @@
-package com.felipe.backend.common.fabrica;
+package com.felipe.backend.fabrica;
 
-import com.felipe.backend.arquivo.IArquivoCNABService;
-import com.felipe.backend.conteudoArquivo.IConteudoArquivoService;
+import com.felipe.backend.service.arquivo.IArquivoCNABService;
+import com.felipe.backend.service.conteudoArquivo.IConteudoArquivoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

@@ -1,8 +1,8 @@
-package com.felipe.backend.arquivo.controller;
+package com.felipe.backend.service.arquivo.controller;
 
 import com.felipe.backend.common.entity.ArquivoCNAB;
 import com.felipe.backend.common.entity.ConteudoArquivoCNAB;
-import com.felipe.backend.common.fabrica.FabricaServico;
+import com.felipe.backend.fabrica.FabricaServico;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,13 +14,13 @@ import java.util.List;
 @RestController
 @Slf4j
 
-@RequestMapping(path="/api")
+@RequestMapping(path="/oldApi")
 public class ArquivoController {
     @Autowired
     private FabricaServico fabrica;
 
     @GetMapping("/listarArquivos")
-    public @ResponseBody Iterable<ArquivoCNAB> greeting() {
+    public @ResponseBody Iterable<ArquivoCNAB> listarArquivos() {
         return fabrica.getArquivoCNABService().getListArquivoCNAB();
     }
 

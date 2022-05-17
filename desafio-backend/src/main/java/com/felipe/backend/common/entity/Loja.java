@@ -1,4 +1,5 @@
 package com.felipe.backend.common.entity;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import javax.persistence.*;
@@ -13,12 +14,12 @@ public class Loja {
     private Integer lojaId;
     private String nomeLoja;
     private String representante;
+    private Double saldo;
 
     @OneToMany(mappedBy="loja")
+    @JsonBackReference
     private Set<Transacoes> transacoes;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
-    private ContaLoja contaLoja;
+
 
 }

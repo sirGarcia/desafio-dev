@@ -1,9 +1,7 @@
-package com.felipe.backend.arquivo;
+package com.felipe.backend.service.arquivo;
 
 import com.felipe.backend.common.entity.ArquivoCNAB;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.util.List;
 
 
 public interface IArquivoCNABService {

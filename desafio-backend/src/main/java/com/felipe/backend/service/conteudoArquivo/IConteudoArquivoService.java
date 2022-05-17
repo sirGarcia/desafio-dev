@@ -1,4 +1,4 @@
-package com.felipe.backend.conteudoArquivo;
+package com.felipe.backend.service.conteudoArquivo;
 
 import com.felipe.backend.common.entity.ArquivoCNAB;
 import com.felipe.backend.common.entity.ConteudoArquivoCNAB;
@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface IConteudoArquivoService {
     List<ConteudoArquivoCNAB> insertConteudo(ArquivoCNAB arquivo, MultipartFile file) throws Exception;
+    List<ConteudoArquivoCNAB> getConteudoByArquivo(ArquivoCNAB arquivoCNAB);
 }
