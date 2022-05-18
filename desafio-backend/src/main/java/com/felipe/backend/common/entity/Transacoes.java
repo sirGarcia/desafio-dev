@@ -23,7 +23,7 @@ public class Transacoes {
 
     private Long dataOcorrencia;
     private Double valorMovimentacao;
-    private Long cpfBeneficiario;
+    private Long  cpfBeneficiario;
     private String cartao;
     private String horaOcorrencia;
 
