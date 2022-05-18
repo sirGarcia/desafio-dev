@@ -22,7 +22,7 @@ public class FileController {
     @Autowired
     FabricaServico fabricaServico;
 
-    @RequestMapping(value = "/persistFile", method = RequestMethod.POST, consumes = { "multipart/form-data" })
+    @RequestMapping(value = "/persist-file", method = RequestMethod.POST, consumes = { "multipart/form-data" })
     public List<Transacoes> parseAndPersistFile(@RequestPart("file") MultipartFile file) throws Exception{
         return fabricaServico.getArquivoCNABService().parseFile(file);
     }
