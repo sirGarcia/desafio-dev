@@ -13,7 +13,7 @@
 </div>
 <div>
     <table *ngIf="listaTransacao.length != 0">
-        <caption style="text-align:center"><b>Informações inseridas no Banco de dados</b></caption>
+        <caption style="text-align:center"><b>Transações</b></caption>
         <thead>
             <tr>
                 <th>Tipo</th>
@@ -28,11 +28,11 @@
         </thead>
         <tbody *ngFor="let item of listaTransacao">
             <td>{{item.tipoTransacao}}</td>
-            <td>{{item.dataOcorrencia}}</td>
+            <td>{{ convertDate(item.dataOcorrencia) | date:'dd/MM/yyyy'}}</td>
             <td>{{item.valorMovimentacao | currency:'BRL':'symbol':'1.2-2'}}</td>
             <td>{{item.cpfBeneficiario}}</td>
             <td>{{item.cartao}}</td>
-            <td>{{item.horaOcorrencia}}</td>
+            <td>{{ formatHora(item.horaOcorrencia) }}</td>
             <td>{{item.loja.representante}}</td>
             <td>{{item.loja.nomeLoja}}</td>
         </tbody>

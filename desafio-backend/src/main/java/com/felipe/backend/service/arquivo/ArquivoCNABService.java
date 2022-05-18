@@ -3,6 +3,7 @@ package com.felipe.backend.service.arquivo;
 import com.felipe.backend.common.entity.ArquivoCNAB;
 import com.felipe.backend.common.entity.ConteudoArquivoCNAB;
 import com.felipe.backend.common.entity.Transacoes;
+import com.felipe.backend.common.exception.BusinessExceptionBadRequest;
 import com.felipe.backend.common.helper.PersistConteudoDTO;
 import com.felipe.backend.common.repositories.ArquivoCNABRepository;
 import com.felipe.backend.fabrica.FabricaNegocio;
@@ -27,7 +28,7 @@ public class ArquivoCNABService implements IArquivoCNABService {
     public Iterable<ArquivoCNAB> getArquivoByNome(String nome){return arquivoRepo.findByNome(nome);}
 
 
-    public List<Transacoes> parseFile(MultipartFile file) throws Exception{
+    public List<Transacoes> parseFile(MultipartFile file) throws BusinessExceptionBadRequest {
         ArquivoCNAB arquivo = fabricaNegocio.getPersistArquivo().exec(file);
         List<ConteudoArquivoCNAB> conteudo = fabricaNegocio.getPersistConteudoArquivo().exec(
                 new PersistConteudoDTO(file, arquivo)

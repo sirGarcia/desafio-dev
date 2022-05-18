@@ -2,6 +2,7 @@ package com.felipe.backend.controller;
 
 import com.felipe.backend.common.entity.Loja;
 import com.felipe.backend.common.entity.Transacoes;
+import com.felipe.backend.common.exception.BusinessExceptionBadRequest;
 import com.felipe.backend.fabrica.FabricaNegocio;
 import com.felipe.backend.fabrica.FabricaServico;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class ConsultaController {
 
     @GetMapping(value = "/transacao-por-loja")
     public List<Transacoes> getTransacoesbyLoja(
-            @RequestParam String lojaId) throws Exception{
+            @RequestParam String lojaId) throws BusinessExceptionBadRequest {
         Loja l = fabricaServico.getLojaService().getLojaById(lojaId);
         return fabricaServico.getTransacaoService().getTransacaoPorLoja(l);
     }

@@ -2,6 +2,8 @@ package com.felipe.backend.service.conteudoArquivo;
 
 import com.felipe.backend.common.entity.ArquivoCNAB;
 import com.felipe.backend.common.entity.ConteudoArquivoCNAB;
+import com.felipe.backend.common.exception.BusinessExceptionBadRequest;
+import com.felipe.backend.common.exception.BusinessExceptionServer;
 import com.felipe.backend.common.repositories.ConteudoArquivoCNABRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +22,7 @@ public class ConteudoArquivoService implements IConteudoArquivoService {
     ConteudoArquivoCNABRepository conteudoArquivoRepo;
 
     @Override
-    public List<ConteudoArquivoCNAB> getConteudoByArquivo(ArquivoCNAB arquivoCNAB){
+    public List<ConteudoArquivoCNAB> getConteudoByArquivo(ArquivoCNAB arquivoCNAB) throws BusinessExceptionBadRequest {
         return conteudoArquivoRepo.findByArquivoCNAB(arquivoCNAB);
     }
 }

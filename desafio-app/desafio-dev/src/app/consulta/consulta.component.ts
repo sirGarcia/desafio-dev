@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
 import { ConsultaService } from '../service/consulta.service';
+import { CustomDateHelper } from '../helper/DateHelper';
 
 @Component({
   selector: 'app-consulta',
@@ -9,7 +9,7 @@ import { ConsultaService } from '../service/consulta.service';
 })
 export class ConsultaComponent implements OnInit {
 
-  constructor(private consultaService : ConsultaService) { }
+  constructor(private consultaService : ConsultaService, private dateHelper : CustomDateHelper) { }
   selectedIdLoja : string = "";
   listaLojas : any = [];
   listaTransacao : any = [];
@@ -42,5 +42,12 @@ export class ConsultaComponent implements OnInit {
 
   isEmptyObject(o :any) : boolean{
     return Object.keys(o).length === 0
+  }
+
+  convertDate(s : number){
+    return this.dateHelper.convertCNABDateToTsDate(s);
+  }
+  formatHora(s : string){
+    return this.dateHelper.convertHoraCNAB(s);
   }
 }

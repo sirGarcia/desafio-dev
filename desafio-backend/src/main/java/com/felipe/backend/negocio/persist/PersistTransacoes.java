@@ -2,6 +2,7 @@ package com.felipe.backend.negocio.persist;
 
 import com.felipe.backend.common.entity.Loja;
 import com.felipe.backend.common.entity.Transacoes;
+import com.felipe.backend.common.exception.BusinessExceptionBadRequest;
 import com.felipe.backend.common.helper.NegocioGeral;
 import com.felipe.backend.common.repositories.LojaRepository;
 import com.felipe.backend.common.repositories.TransacoesRepository;
@@ -23,23 +24,23 @@ public class PersistTransacoes extends NegocioGeral<List<Transacoes>, List<Trans
     TransacoesRepository transacoesRepo;
 
     @Override
-    protected void checkInputConfig(List<Transacoes> input) throws Exception {
-        if(input == null || input.isEmpty()) throw new Exception("Missing transactions to persist");
+    protected void checkInputConfig(List<Transacoes> input) throws BusinessExceptionBadRequest {
+        if(input == null || input.isEmpty()) throw new BusinessExceptionBadRequest("Missing transactions to persist");
     }
 
     @Override
-    protected List<Transacoes> execOperation(List<Transacoes> input) throws Exception {
+    protected List<Transacoes> execOperation(List<Transacoes> input) throws BusinessExceptionBadRequest {
         Iterable<Transacoes> transacoes = transacoesRepo.saveAll(getPersistedLoja(input));
         return StreamSupport.stream(transacoes.spliterator(), false).collect(Collectors.toList());
     }
 
     @Override
-    protected void checkBusiness(List<Transacoes> output) throws Exception {
+    protected void checkBusiness(List<Transacoes> output) throws BusinessExceptionBadRequest {
 
     }
 
     @Override
-    protected List<Transacoes> convertOutput(List<Transacoes> output) throws Exception {
+    protected List<Transacoes> convertOutput(List<Transacoes> output) throws BusinessExceptionBadRequest {
         return output;
     }
 

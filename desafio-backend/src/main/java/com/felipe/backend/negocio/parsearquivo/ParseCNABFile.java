@@ -5,6 +5,7 @@ import com.felipe.backend.common.entity.Loja;
 import com.felipe.backend.common.entity.Transacoes;
 import com.felipe.backend.common.enums.ArquivoCNABConfig;
 import com.felipe.backend.common.enums.TipoTransacaoConfig;
+import com.felipe.backend.common.exception.BusinessExceptionBadRequest;
 import com.felipe.backend.common.helper.NegocioGeral;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -18,17 +19,14 @@ public class ParseCNABFile extends NegocioGeral<List<ConteudoArquivoCNAB>, List<
             .get().getValueFim();
 
     @Override
-    protected void checkInputConfig(List<ConteudoArquivoCNAB> input) throws Exception {
-        if(input == null || input.isEmpty()) throw new Exception("Missing ConteudoArquivo Entity");
-        for(ConteudoArquivoCNAB c : input){
-            if(c.getConteudoLinha().length() != maxlength)
-                throw new Exception("Line of ConteudoArquivo Entity out of expected bounds");
-        }
+    protected void checkInputConfig(List<ConteudoArquivoCNAB> input) throws BusinessExceptionBadRequest {
+        if(input == null || input.isEmpty()) throw new BusinessExceptionBadRequest("Missing ConteudoArquivo Entity");
+        input.removeIf(c -> c.getConteudoLinha().length() != maxlength);
+        if(input.isEmpty()) throw new BusinessExceptionBadRequest("None line matches the size of the format");
     }
 
     @Override
-    protected List<Transacoes> execOperation(List<ConteudoArquivoCNAB> input) throws Exception {
-
+    protected List<Transacoes> execOperation(List<ConteudoArquivoCNAB> input) throws BusinessExceptionBadRequest {
         List<Loja> listaLoja = new ArrayList<>();
         List<Transacoes> negocio = new ArrayList<>();
         for(ConteudoArquivoCNAB l : input){
@@ -53,7 +51,7 @@ public class ParseCNABFile extends NegocioGeral<List<ConteudoArquivoCNAB>, List<
                     transacaoAtual.setCartao(currentElement);
                 }
                 if(ArquivoCNABConfig.HORA == config){
-                    transacaoAtual.setHoraOcorrencia(Long.valueOf(currentElement));
+                    transacaoAtual.setHoraOcorrencia(currentElement);
                 }
                 if(ArquivoCNABConfig.REPRESENTANTE == config){
                     lojaAtual.setRepresentante(currentElement.trim());
@@ -80,12 +78,12 @@ public class ParseCNABFile extends NegocioGeral<List<ConteudoArquivoCNAB>, List<
     }
 
     @Override
-    protected void checkBusiness(List<Transacoes> output) throws Exception {
+    protected void checkBusiness(List<Transacoes> output) throws BusinessExceptionBadRequest {
 
     }
 
     @Override
-    protected List<Transacoes> convertOutput(List<Transacoes> output) throws Exception {
+    protected List<Transacoes> convertOutput(List<Transacoes> output) throws BusinessExceptionBadRequest {
         return output;
     }
 
