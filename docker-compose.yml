@@ -3,6 +3,18 @@ version: '3.7'
  
 # Define services
 services:
+  db:
+    image: mysql:5.7.28
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_DATABASE: desafio-dev
+      MYSQL_USER: desafio
+      MYSQL_PASSWORD: desafio-dev
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - mysql_data:/var/lib/mysql
+       
   app-server:
     build:
       context: desafio-backend 
@@ -37,19 +49,7 @@ services:
       - app-server
     networks:
       - frontend  
- 
-  db:
-    image: mysql:5.7.28
-    ports:
-      - 3306:3306
-    environment:
-      MYSQL_DATABASE: desafio-dev
-      MYSQL_USER: desafio
-      MYSQL_PASSWORD: desafio-dev
-      MYSQL_ROOT_PASSWORD: root
-    volumes:
-      - mysql_data:/var/lib/mysql 
-   
+
 networks:
   backend:
   frontend: 
