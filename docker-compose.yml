@@ -38,7 +38,7 @@ services:
  
   app-client:
     build:
-      context: angular-11-social-login
+      context: desafio-app/desafio-dev
       dockerfile: Dockerfile
       args:
         API_BASE_URL: http://127.0.0.1:8080/
