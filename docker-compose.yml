@@ -14,7 +14,7 @@ services:
       MYSQL_ROOT_PASSWORD: root
     volumes:
       - mysql_data:/var/lib/mysql
-       
+
   app-server:
     build:
       context: desafio-backend 
@@ -23,7 +23,7 @@ services:
       - "8080:8080"
     restart: always
     depends_on:
-      - db .
+      - db
     environment: 
       SPRING_APPLICATION_JSON: '{
         "spring.datasource.url"  : "jdbc:mysql://mysqldb:3306/desafio-dev?useSSL=false",
