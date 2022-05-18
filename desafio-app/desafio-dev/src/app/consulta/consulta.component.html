@@ -1,0 +1,40 @@
+<h1>Consultar Transações por loja: </h1>
+<div>
+    <select (change)="onSelectChange($event)">
+        <option selected></option>
+        <option *ngFor="let loja of listaLojas" value={{loja.lojaId}}>{{loja.nomeLoja}}</option>
+    </select>
+</div>
+<br><br>
+<div *ngIf="!isEmptyObject(lojaAtual)">
+    <label>Nome da Loja:</label><span> {{lojaAtual.nomeLoja}}</span> <br>
+    <label>Dono da Loja:</label><span> {{lojaAtual.representante}}</span> <br>
+    <label>Saldo:</label><span [ngStyle]="{'color' : (lojaAtual.saldo < 0 )? 'firebrick' : 'forestgreen'}"> {{lojaAtual.saldo | currency:'BRL':'symbol':'1.2-2'}}</span>
+</div>
+<div>
+    <table *ngIf="listaTransacao.length != 0">
+        <caption style="text-align:center"><b>Informações inseridas no Banco de dados</b></caption>
+        <thead>
+            <tr>
+                <th>Tipo</th>
+                <th>Data</th>
+                <th>Valor</th>
+                <th>CPF</th>
+                <th>Cartão</th>
+                <th>Hora</th>
+                <th>Dono da Loja</th>
+                <th>Nome da Loja</th>
+            </tr>
+        </thead>
+        <tbody *ngFor="let item of listaTransacao">
+            <td>{{item.tipoTransacao}}</td>
+            <td>{{item.dataOcorrencia}}</td>
+            <td>{{item.valorMovimentacao | currency:'BRL':'symbol':'1.2-2'}}</td>
+            <td>{{item.cpfBeneficiario}}</td>
+            <td>{{item.cartao}}</td>
+            <td>{{item.horaOcorrencia}}</td>
+            <td>{{item.loja.representante}}</td>
+            <td>{{item.loja.nomeLoja}}</td>
+        </tbody>
+    </table>
+</div>

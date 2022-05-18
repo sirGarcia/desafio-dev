@@ -1,0 +1,34 @@
+<h1>Subir arquivo CNAB: </h1>
+<div>
+    <input type="file" name="CNAB" (change)="onFileSelect($event)"/>
+</div>
+<div>
+    <button (click)="onSubmit()">Parse</button>
+</div>
+<br>
+<br>
+<table *ngIf="retornoBackend">
+    <caption style="text-align:center"><b>Informações inseridas no Banco de dados</b></caption>
+    <thead>
+        <tr>
+            <th>Tipo</th>
+            <th>Data</th>
+            <th>Valor</th>
+            <th>CPF</th>
+            <th>Cartão</th>
+            <th>Hora</th>
+            <th>Dono da Loja</th>
+            <th>Nome da Loja</th>
+        </tr>
+    </thead>
+    <tbody *ngFor="let item of retornoBackend">
+        <td>{{item.tipoTransacao}}</td>
+        <td>{{item.dataOcorrencia}}</td>
+        <td>{{item.valorMovimentacao | currency:'BRL':'symbol':'1.2-2'}}</td>
+        <td>{{item.cpfBeneficiario}}</td>
+        <td>{{item.cartao}}</td>
+        <td>{{item.horaOcorrencia}}</td>
+        <td>{{item.loja.representante}}</td>
+        <td>{{item.loja.nomeLoja}}</td>
+    </tbody>
+</table>

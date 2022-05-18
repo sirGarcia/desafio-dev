@@ -1,0 +1,43 @@
+body { 
+    display: grid;
+    grid-template-areas: 
+      "header header ads"
+      "nav article article"
+      "nav footer footer";
+    grid-template-rows: 80px 1fr 70px;  
+    grid-template-columns: 20% 1fr 15%;
+    grid-row-gap: 10px;
+    grid-column-gap: 10px;
+    height: 100vh;
+    margin: 0;
+    }  
+  header, article, nav, div {
+    padding: 1.2em;
+    border-radius: 1px;
+    border-color: black;
+    }
+  .page-header {
+    grid-area: header;
+    }
+  .main-article { 
+    grid-area: article;      
+    }
+  .nav-bar { 
+    grid-area: nav; 
+    }
+  .clickable-element {
+    cursor: pointer;
+  }
+  /* Stack the layout on small devices/viewports. */
+  @media all and (max-width: 575px) {
+    body { 
+      grid-template-areas: 
+        "header"
+        "article"
+        "ads"
+        "nav"
+        "footer";
+      grid-template-rows: 80px 1fr 70px 1fr 70px;  
+      grid-template-columns: 1fr;
+   }
+  }
