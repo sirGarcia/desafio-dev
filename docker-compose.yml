@@ -12,8 +12,6 @@ services:
       MYSQL_USER: desafio
       MYSQL_PASSWORD: desafio-dev
       MYSQL_ROOT_PASSWORD: root
-    volumes:
-      - mysql_data:/var/lib/mysql
 
   app-server:
     build:
